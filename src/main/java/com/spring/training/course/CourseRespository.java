@@ -1,4 +1,4 @@
-package io.springtraining.springbootstarter.course;
+package com.spring.training.course;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package io.springtraining.springbootstarter.topic;
+package com.spring.training.topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 public class TopicService {
 
 	@Autowired
-	TopicRespository topicRespository;
+	TopicRepository topicRespository;
 
+	public TopicService(TopicRepository topicRepository) {
+		this.topicRespository = topicRepository;
+	}
+	
 	public List<Topic> getAllTopics() {
 		List<Topic> topics = new ArrayList<Topic>();
 		topicRespository.findAll().forEach(topics::add);
@@ -22,12 +26,14 @@ public class TopicService {
 		return topicRespository.findOne(id);
 	}
 
-	public void addTopic(Topic topic) {
-		topicRespository.save(topic);
+	public Topic addTopic(Topic topic) {
+		Topic returnTopic = topicRespository.save(topic);
+		return returnTopic;
 	}
 
-	public void updateTopic(Topic topic, String id) {
-		topicRespository.save(topic);
+	public Topic updateTopic(Topic topic, String id) {
+		Topic returnTopic = topicRespository.save(topic);
+		return returnTopic;
 	}
 
 	public void deleteTopic(String id) {

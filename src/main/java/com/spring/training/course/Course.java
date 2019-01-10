@@ -1,14 +1,18 @@
-package io.springtraining.springbootstarter.course;
+package com.spring.training.course;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import io.springtraining.springbootstarter.topic.Topic;
+import com.spring.training.topic.Topic;
 
 @Entity
-public class Course {
+public class Course implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	String id;
 	

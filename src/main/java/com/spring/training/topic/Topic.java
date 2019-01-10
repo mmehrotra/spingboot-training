@@ -1,4 +1,6 @@
-package io.springtraining.springbootstarter.topic;
+package com.spring.training.topic;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Topic {
+public class Topic implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TOPIC_SEQ")
     //@SequenceGenerator(sequenceName = "topic_seq", allocationSize = 1, name = "TOPIC_SEQ")

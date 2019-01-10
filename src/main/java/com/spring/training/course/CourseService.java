@@ -1,4 +1,4 @@
-package io.springtraining.springbootstarter.course;
+package com.spring.training.course;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,14 @@ public class CourseService {
 		return courseRespository.findOne(id);
 	}
 
-	public void addCourse(Course course) {
-		courseRespository.save(course);
+	public Course addCourse(Course course) {
+		Course returnCourse = courseRespository.save(course);
+		return returnCourse;
 	}
 
-	public void updateCourse(Course course) {
-		courseRespository.save(course);
+	public Course updateCourse(Course course) {
+		Course returnCourse = courseRespository.save(course);
+		return returnCourse;
 	}
 
 	public void deleteCourse(String id) {
