@@ -1,12 +1,12 @@
-package com.spring.training;
+package com.publicis.sapient.api.training;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CourseApiDataApplication {
+public class TopicApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CourseApiDataApplication.class, args);
+		SpringApplication.run(TopicApplication.class, args);
 	}
 }

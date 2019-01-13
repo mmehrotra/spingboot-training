@@ -1,4 +1,4 @@
-package com.spring.training.junits;
+package com.publicis.sapient.api.training.junit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -1,4 +1,4 @@
-package com.spring.training.junits;
+package com.publicis.sapient.api.training.junit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
