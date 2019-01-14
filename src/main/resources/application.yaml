@@ -1,0 +1,7 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://amit:Password#123@ds155714.mlab.com:55714/topic-db
