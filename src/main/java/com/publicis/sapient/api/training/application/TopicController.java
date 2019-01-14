@@ -34,9 +34,13 @@ public class TopicController {
     public @ResponseBody
     ResponseEntity<TopicWrapper> getTopic(@PathVariable String topicId) {
         Topic topic = topicService.getTopic(topicId);
+
+        if (topic == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         List topics = new ArrayList();
         topics.add(topic);
-
         TopicWrapper wrapper = new TopicWrapper();
         wrapper.setData(topics);
 

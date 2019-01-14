@@ -23,7 +23,7 @@ public class TopicMongoRepositoryImpl implements TopicRepository {
 
     @Override
     public Topic createTopic(Topic topic) {
-        mongoTemplate.save(topic);
+        topic.setId(mongoTemplate.save(topic).getId());
         return topic;
     }
 
@@ -41,6 +41,7 @@ public class TopicMongoRepositoryImpl implements TopicRepository {
 
     @Override
     public void updateTopic(String topicId, Topic topic) {
+        topic.setId(topicId);
         mongoTemplate.save(topic);
     }
 
