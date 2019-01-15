@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TopicRepository {
 
-    Topic createTopic(Topic topic);
+    String createTopic(Topic topic);
 
     Topic getTopic(String topicId);
 
@@ -17,7 +17,7 @@ public interface TopicRepository {
 
     void deleteTopic(String topicId);
 
-    Course createCourse(String topicId, Course course);
+    void createCourse(String topicId, Topic topic);
 
     Course getCourse(String topicId, String courseId);
 

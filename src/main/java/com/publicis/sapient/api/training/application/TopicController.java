@@ -26,8 +26,8 @@ public class TopicController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> createTopic(@RequestBody Topic topicBody) {
-        Topic topic = topicService.createTopic(topicBody);
-        return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topic.getId()).build().toUri()).build();
+        String topicId = topicService.createTopic(topicBody);
+        return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topicId).build().toUri()).build();
     }
 
     @GetMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,15 +72,20 @@ public class TopicController {
 
     @PostMapping(path = "/{topicId}/courses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<String> createCourse(@PathVariable String topicId, @RequestBody Course courseBody) {
-        Course course = topicService.createCourse(topicId, courseBody);
-        return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topicId + "/" + course.getId()).build().toUri()).build();
+    ResponseEntity<String> createCourse(@PathVariable String topicId, @RequestBody Course course) {
+        String courseId = topicService.createCourse(topicId, course);
+        return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topicId + "/courses/" + courseId).build().toUri()).build();
     }
 
     @GetMapping(path = "/{topicId}/courses/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<CourseWrapper> getCourse(@PathVariable String topicId, @PathVariable String courseId) {
         Course course = topicService.getCourse(topicId, courseId);
+
+        if (course == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         List courses = new ArrayList();
         courses.add(course);
 
@@ -94,6 +99,11 @@ public class TopicController {
     public @ResponseBody
     ResponseEntity<CourseWrapper> getAllCourse(@PathVariable String topicId) {
         List<Course> courses = topicService.getAllCourse(topicId);
+
+        if (courses == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         CourseWrapper wrapper = new CourseWrapper();
         wrapper.setData(new ArrayList<>(courses));
         return ResponseEntity.ok(wrapper);
