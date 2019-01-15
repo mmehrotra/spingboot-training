@@ -34,7 +34,6 @@ public class TopicController {
     public @ResponseBody
     ResponseEntity<TopicWrapper> getTopic(@PathVariable String topicId) {
         Topic topic = topicService.getTopic(topicId);
-
         if (topic == null) {
             return ResponseEntity.notFound().build();
         }
@@ -58,15 +57,23 @@ public class TopicController {
 
     @PutMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<String> updateTopic(@PathVariable String topicId, @RequestBody Topic topic) {
-        topicService.updateTopic(topicId, topic);
+    ResponseEntity<String> updateTopic(@PathVariable String topicId, @RequestBody Topic topicReq) {
+        Topic topic = topicService.updateTopic(topicId, topicReq);
+        if (topic == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> deleteTopic(@PathVariable String topicId) {
-        topicService.deleteTopic(topicId);
+        Boolean isDeleted = topicService.deleteTopic(topicId);
+        if (!isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 
@@ -119,7 +126,11 @@ public class TopicController {
     @DeleteMapping(path = "/{topicId}/courses/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> deleteCourse(@PathVariable String topicId, @PathVariable String courseId) {
-        topicService.deleteCourse(topicId, courseId);
+        Boolean isDeleted = topicService.deleteCourse(topicId, courseId);
+        if (!isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 
