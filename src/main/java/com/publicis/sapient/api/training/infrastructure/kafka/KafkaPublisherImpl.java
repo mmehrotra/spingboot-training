@@ -18,7 +18,7 @@ public class KafkaPublisherImpl implements Publisher {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void publish(Topic topicReq) {
-        kafkaTemplate.send(topic, topicReq);
+    public void publish(Topic topicMsg) {
+        kafkaTemplate.send(topic, topicMsg.getId(), topicMsg);
     }
 }

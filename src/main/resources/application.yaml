@@ -7,5 +7,6 @@ spring:
       uri: mongodb://amit:Password#123@ds155714.mlab.com:55714/topic-db
 
 kafka:
-  bootstrapAddress: kafka-2709f680-amit-bb97.aivencloud.com:26578
+  bootstrap:
+    address: kafka-2709f680-amit-bb97.aivencloud.com:26578
   topic: topics
