@@ -23,24 +23,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.training.topic.Topic;
+/*import com.spring.training.topic.Topic;
 import com.spring.training.topic.TopicController;
 import com.spring.training.topic.TopicService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = { TopicController.class }, secure = false)
+@WebMvcTest(controllers = { TopicController.class }, secure = false)*/
 public class TopicControllerTest {
-
+/*
 	@Autowired
 	MockMvc mockMvc;
 
 	@MockBean
-	TopicService topicServiceMock;
+	//TopicService topicServiceMock;
 
 	@Autowired
 	ObjectMapper objectMapper;
 
-	Topic topic;
+	//Topic topic;
 
 	@Before
 	public void setup() {
@@ -91,4 +91,4 @@ public class TopicControllerTest {
 
 	}
 */
-}
+

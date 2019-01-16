@@ -13,14 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.training.course.Course;
+/*import com.spring.training.course.Course;
 import com.spring.training.domain.ResponseVO;
-import com.spring.training.topic.Topic;
+import com.spring.training.topic.Topic; */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CourseApiDataIntegrationTest {
-
+/*
 	@Autowired
 	private TestRestTemplate restTemplate;
 
@@ -101,7 +101,5 @@ public class CourseApiDataIntegrationTest {
 		assertNotNull(responseVO4.getMessage());
 		assertNotNull(responseVO4.getData());
 */
-	}
 
-	
 }

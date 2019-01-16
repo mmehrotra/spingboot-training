@@ -2,6 +2,7 @@ package com.publicis.sapient.api.training.domain.service;
 
 import com.publicis.sapient.api.training.domain.entity.Course;
 import com.publicis.sapient.api.training.domain.entity.Topic;
+import com.publicis.sapient.api.training.domain.messaging.Publisher;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,18 @@ import java.util.List;
 public class TopicService {
 
     private TopicRepository topicRepository;
+    private Publisher publisher;
 
-    public TopicService(TopicRepository topicRepository) {
+    public TopicService(TopicRepository topicRepository, Publisher publisher) {
         this.topicRepository = topicRepository;
+        this.publisher = publisher;
     }
 
     public String createTopic(Topic topic) {
-        return topicRepository.saveUpdateTopic(topic);
+        String topicId =  topicRepository.saveUpdateTopic(topic);
+        topic.setId(topicId);
+        publisher.publish(topic);
+        return topicId;
     }
 
     public Topic getTopic(String topicId) {
