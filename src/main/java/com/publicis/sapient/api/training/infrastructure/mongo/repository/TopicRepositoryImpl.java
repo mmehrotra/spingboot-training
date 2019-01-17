@@ -1,4 +1,4 @@
-package com.publicis.sapient.api.training.infrastructure.repository;
+package com.publicis.sapient.api.training.infrastructure.mongo.repository;
 
 import com.publicis.sapient.api.training.domain.entity.Topic;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
@@ -11,17 +11,17 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Repository
-public class TopicMongoRepositoryImpl implements TopicRepository {
+public class TopicRepositoryImpl implements TopicRepository {
 
     private final MongoTemplate mongoTemplate;
 
-    public TopicMongoRepositoryImpl(MongoTemplate mongoTemplate) {
+    public TopicRepositoryImpl(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
     @Override
-    public String saveUpdateTopic(Topic topic) {
-        return mongoTemplate.save(topic).getId();
+    public Topic saveUpdateTopic(Topic topic) {
+        return mongoTemplate.save(topic);
     }
 
     @Override

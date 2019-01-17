@@ -3,6 +3,7 @@ package com.publicis.sapient.api.training.domain.service;
 import com.publicis.sapient.api.training.domain.entity.Course;
 import com.publicis.sapient.api.training.domain.entity.Topic;
 import com.publicis.sapient.api.training.domain.messaging.Publisher;
+import com.publicis.sapient.api.training.domain.repository.TopicCacheRepository;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +15,28 @@ import java.util.List;
 public class TopicService {
 
     private TopicRepository topicRepository;
+    private TopicCacheRepository topicCacheRepository;
     private Publisher publisher;
 
-    public TopicService(TopicRepository topicRepository, Publisher publisher) {
+    public TopicService(TopicRepository topicRepository, TopicCacheRepository topicCacheRepository, Publisher publisher) {
         this.topicRepository = topicRepository;
+        this.topicCacheRepository = topicCacheRepository;
         this.publisher = publisher;
     }
 
-    public String createTopic(Topic topic) {
-        String topicId =  topicRepository.saveUpdateTopic(topic);
-        topic.setId(topicId);
-        publisher.publish(topic);
-        return topicId;
+    public String createTopic(Topic topicReq) {
+        Topic topic = topicRepository.saveUpdateTopic(topicReq);
+        topicCacheRepository.putTopic(topic.getId(), topic);
+        //publisher.publish(topic);
+        return topic.getId();
     }
 
     public Topic getTopic(String topicId) {
-        return topicRepository.getTopic(topicId);
+        Topic topic = topicCacheRepository.getTopic(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+        return topic;
     }
 
     public List<Topic> getAllTopic() {
@@ -38,7 +45,7 @@ public class TopicService {
 
     public Topic updateTopic(String topicId, Topic topicReq) {
         Topic topic = topicRepository.getTopic(topicId);
-        if(topic != null) {
+        if (topic != null) {
             mapTopic(topic, topicReq);
             topicRepository.saveUpdateTopic(topic);
         }
@@ -78,7 +85,7 @@ public class TopicService {
     public List<Course> getAllCourse(String topicId) {
         List<Course> courses = null;
         Topic topic = topicRepository.getTopic(topicId);
-        if(topic != null) {
+        if (topic != null) {
             courses = topic.getCourses();
         }
 

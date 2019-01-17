@@ -5,6 +5,11 @@ spring:
   data:
     mongodb:
       uri: mongodb://amit:Password#123@ds155714.mlab.com:55714/topic-db
+  cache:
+    type: redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 kafka:
   bootstrap:

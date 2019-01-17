@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TopicRepository {
 
-    String saveUpdateTopic(Topic topic);
+    Topic saveUpdateTopic(Topic topic);
 
     Topic getTopic(String topicId);
 

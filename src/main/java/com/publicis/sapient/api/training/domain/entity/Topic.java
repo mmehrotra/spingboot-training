@@ -5,12 +5,13 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Document(collection = "topics")
-public class Topic {
+public class Topic implements Serializable {
 
     @Id
     String id;
