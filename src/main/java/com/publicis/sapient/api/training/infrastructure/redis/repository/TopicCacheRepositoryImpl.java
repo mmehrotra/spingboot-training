@@ -28,4 +28,9 @@ public class TopicCacheRepositoryImpl implements TopicCacheRepository {
     public Topic getTopic(String key) {
         return redisUtil.getMap(TABLE_TOPIC, TOPIC + key);
     }
+
+    @Override
+    public Long deleteTopic(String key) {
+        return redisUtil.deleteMap(TABLE_TOPIC, TOPIC + key);
+    }
 }

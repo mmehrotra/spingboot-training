@@ -34,6 +34,10 @@ public class RedisUtil<T> {
         return hashOperation.get(redisKey, key);
     }
 
+    public Long deleteMap(String redisKey, Object key) {
+        return hashOperation.delete(redisKey, key);
+    }
+
     public Map<Object, T> getMapAll(String redisKey) {
         return hashOperation.entries(redisKey);
     }

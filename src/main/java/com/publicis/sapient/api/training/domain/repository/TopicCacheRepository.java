@@ -7,4 +7,6 @@ public interface TopicCacheRepository {
     void putTopic(String key, Topic topic);
 
     Topic getTopic(String key);
+
+    Long deleteTopic(String key);
 }

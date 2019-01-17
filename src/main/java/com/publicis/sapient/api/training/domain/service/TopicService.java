@@ -26,13 +26,13 @@ public class TopicService {
 
     public String createTopic(Topic topicReq) {
         Topic topic = topicRepository.saveUpdateTopic(topicReq);
-        topicCacheRepository.putTopic(topic.getId(), topic);
+        putTopicCache(topic.getId(), topic);
         //publisher.publish(topic);
         return topic.getId();
     }
 
     public Topic getTopic(String topicId) {
-        Topic topic = topicCacheRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
         if (topic == null) {
             topic = topicRepository.getTopic(topicId);
         }
@@ -44,37 +44,59 @@ public class TopicService {
     }
 
     public Topic updateTopic(String topicId, Topic topicReq) {
-        Topic topic = topicRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+
         if (topic != null) {
             mapTopic(topic, topicReq);
             topicRepository.saveUpdateTopic(topic);
+            putTopicCache(topic.getId(), topic);
         }
 
         return topic;
     }
 
     public Boolean deleteTopic(String topicId) {
-        return topicRepository.deleteTopic(topicId);
+        Boolean isDeleted = topicRepository.deleteTopic(topicId);
+        if (isDeleted) {
+            deleteTopicCache(topicId);
+        }
+        return isDeleted;
     }
 
     public String createCourse(String topicId, Course course) {
-        Topic topic = topicRepository.getTopic(topicId);
-        List<Course> courses = topic.getCourses();
-        if (courses == null) {
-            courses = new ArrayList<>();
+        String courseId = null;
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
         }
 
-        course.setId(getRandomNumber());
-        courses.add(course);
-        topic.setCourses(courses);
-        topicRepository.saveUpdateTopic(topic);
+        if (topic != null) {
+            List<Course> courses = topic.getCourses();
+            if (courses == null) {
+                courses = new ArrayList<>();
+            }
 
-        return course.getId();
+            courseId = getRandomNumber();
+            course.setId(courseId);
+            courses.add(course);
+            topic.setCourses(courses);
+            topicRepository.saveUpdateTopic(topic);
+            putTopicCache(topic.getId(), topic);
+        }
+
+        return courseId;
     }
 
     public Course getCourse(String topicId, String courseId) {
         Course course = null;
-        Topic topic = topicRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+
         if (topic != null) {
             course = topic.getCourses().stream().filter(c -> c.getId().equals(courseId)).findAny().orElse(null);
         }
@@ -84,7 +106,11 @@ public class TopicService {
 
     public List<Course> getAllCourse(String topicId) {
         List<Course> courses = null;
-        Topic topic = topicRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+
         if (topic != null) {
             courses = topic.getCourses();
         }
@@ -93,25 +119,64 @@ public class TopicService {
     }
 
     public void updateCourse(String topicId, String courseId, Course courseReq) {
-        Topic topic = topicRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+
         if (topic != null) {
             Course course = topic.getCourses().stream().filter(c -> c.getId().equals(courseId)).findAny().orElse(null);
             if (course != null) {
                 mapCourse(course, courseReq);
                 topicRepository.saveUpdateTopic(topic);
+                putTopicCache(topic.getId(), topic);
             }
         }
     }
 
     public Boolean deleteCourse(String topicId, String courseId) {
-        Topic topic = topicRepository.getTopic(topicId);
+        Topic topic = getTopicCache(topicId);
+        if (topic == null) {
+            topic = topicRepository.getTopic(topicId);
+        }
+
         if (topic != null) {
             topic.getCourses().removeIf(course -> course.getId().equals(courseId));
             topicRepository.saveUpdateTopic(topic);
+            putTopicCache(topic.getId(), topic);
             return true;
         }
 
         return false;
+    }
+
+    private void putTopicCache(String topicId, Topic topic) {
+        try {
+            topicCacheRepository.putTopic(topicId, topic);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private Topic getTopicCache(String topicId) {
+        Topic topic = null;
+        try {
+            topic = topicCacheRepository.getTopic(topicId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return topic;
+    }
+
+    private Long deleteTopicCache(String topicId) {
+        Long count = null;
+        try {
+            count = topicCacheRepository.deleteTopic(topicId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return count;
     }
 
     private String getRandomNumber() {
@@ -147,4 +212,5 @@ public class TopicService {
             course.setName(courseReq.getName());
         }
     }
+
 }
