@@ -2,7 +2,7 @@ package com.publicis.sapient.api.training.domain.service;
 
 import com.publicis.sapient.api.training.domain.entity.Course;
 import com.publicis.sapient.api.training.domain.entity.Topic;
-import com.publicis.sapient.api.training.domain.messaging.Publisher;
+import com.publicis.sapient.api.training.domain.events.MessagePublisher;
 import com.publicis.sapient.api.training.domain.repository.TopicCacheRepository;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
 import org.springframework.stereotype.Service;
@@ -16,18 +16,18 @@ public class TopicService {
 
     private TopicRepository topicRepository;
     private TopicCacheRepository topicCacheRepository;
-    private Publisher publisher;
+    private MessagePublisher messagePublisher;
 
-    public TopicService(TopicRepository topicRepository, TopicCacheRepository topicCacheRepository, Publisher publisher) {
+    public TopicService(TopicRepository topicRepository, TopicCacheRepository topicCacheRepository, MessagePublisher messagePublisher) {
         this.topicRepository = topicRepository;
         this.topicCacheRepository = topicCacheRepository;
-        this.publisher = publisher;
+        this.messagePublisher = messagePublisher;
     }
 
     public String createTopic(Topic topicReq) {
         Topic topic = topicRepository.saveUpdateTopic(topicReq);
         putTopicCache(topic.getId(), topic);
-        //publisher.publish(topic);
+        messagePublisher.publish(topic);
         return topic.getId();
     }
 

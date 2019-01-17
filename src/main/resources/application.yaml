@@ -13,5 +13,5 @@ spring:
 
 kafka:
   bootstrap:
-    address: kafka-2709f680-amit-bb97.aivencloud.com:26578
+    address: localhost:9092
   topic: topics
