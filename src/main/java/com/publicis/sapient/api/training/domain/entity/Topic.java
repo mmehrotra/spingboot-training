@@ -14,11 +14,51 @@ import java.util.List;
 public class Topic implements Serializable {
 
     @Id
-    String id;
+    private String id;
+    private String name;
+    private String description;
+    private List<Course> courses;
 
-    String name;
+    public Topic() {}
 
-    String description;
+    public Topic(String id, String name, String description, List<Course> courses) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.courses = courses;
+    }
 
-    List<Course> courses;
+    public static class Builder {
+        private String id;
+        private String name;
+        private String description;
+        private List<Course> courses;
+
+        public Builder() {
+        }
+
+        public Builder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setCourses(List<Course> courses) {
+            this.courses = courses;
+            return this;
+        }
+
+        public Topic build() {
+            return new Topic(id, name, description, courses);
+        }
+    }
 }

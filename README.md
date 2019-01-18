@@ -3,7 +3,7 @@ This repository is for SpringBoot Training
 
 $mvn -N io.takari:maven:wrapper
 
-$./mvnw -DskipTests spring-boot:run
+$./mvnw test spring-boot:run
 
 
 zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties
