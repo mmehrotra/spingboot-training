@@ -1,7 +1,6 @@
-package com.publicis.sapient.api.training.integration;
+package com.publicis.sapient.api.training.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.publicis.sapient.api.training.application.TopicController;
 import com.publicis.sapient.api.training.domain.entity.Course;
 import com.publicis.sapient.api.training.domain.entity.Topic;
 import org.junit.Test;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TopicControllerTest {
+public class TopicControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
