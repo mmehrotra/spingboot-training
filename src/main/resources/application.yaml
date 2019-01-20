@@ -15,3 +15,37 @@ kafka:
   bootstrap:
     address: localhost:9092
   topic: topics
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: beans,info,env,configprops,health,httptrace,loggers,metrics,prometheus
+  endpoint:
+    beans:
+      enabled: true
+    info:
+      enabled: true
+    env:
+      enabled: true
+    configprops:
+      enabled: true
+    health:
+      enabled: true
+    httptrace:
+      enabled: true
+    loggers:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
+        step: 1m
+
+
