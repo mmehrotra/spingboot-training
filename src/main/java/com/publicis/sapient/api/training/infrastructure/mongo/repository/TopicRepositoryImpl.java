@@ -2,6 +2,8 @@ package com.publicis.sapient.api.training.infrastructure.mongo.repository;
 
 import com.publicis.sapient.api.training.domain.entity.Topic;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,8 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Repository
 public class TopicRepositoryImpl implements TopicRepository {
+
+    private Logger logger = LoggerFactory.getLogger(TopicRepositoryImpl.class);
 
     private final MongoTemplate mongoTemplate;
 

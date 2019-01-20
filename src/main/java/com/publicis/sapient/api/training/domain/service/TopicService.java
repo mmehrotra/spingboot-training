@@ -5,6 +5,8 @@ import com.publicis.sapient.api.training.domain.entity.Topic;
 import com.publicis.sapient.api.training.domain.events.MessagePublisher;
 import com.publicis.sapient.api.training.domain.repository.TopicCacheRepository;
 import com.publicis.sapient.api.training.domain.repository.TopicRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -14,6 +16,7 @@ import java.util.List;
 @Service
 public class TopicService {
 
+    private Logger logger = LoggerFactory.getLogger(TopicService.class);
     private TopicRepository topicRepository;
     private TopicCacheRepository topicCacheRepository;
     private MessagePublisher messagePublisher;
