@@ -39,3 +39,5 @@ brew install grafana
 brew services start grafana
 
 Add Promethueus datasource in Grafana and configure dashbaord
+
+Postman collections - https://www.getpostman.com/collections/7b47cc424b30c0e9c310

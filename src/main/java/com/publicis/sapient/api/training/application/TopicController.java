@@ -27,14 +27,14 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> createTopic(@RequestBody Topic topicBody) {
         String topicId = topicService.createTopic(topicBody);
         return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topicId).build().toUri()).build();
     }
 
-    @GetMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{topicId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<TopicWrapper> getTopic(@PathVariable String topicId) {
         Topic topic = topicService.getTopic(topicId);
@@ -50,7 +50,7 @@ public class TopicController {
         return ResponseEntity.ok(wrapper);
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<TopicWrapper> getAllTopic() {
         List<Topic> topics = topicService.getAllTopic();
@@ -59,7 +59,7 @@ public class TopicController {
         return ResponseEntity.ok(wrapper);
     }
 
-    @PutMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{topicId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> updateTopic(@PathVariable String topicId, @RequestBody Topic topicReq) {
         Topic topic = topicService.updateTopic(topicId, topicReq);
@@ -70,7 +70,7 @@ public class TopicController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/{topicId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{topicId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> deleteTopic(@PathVariable String topicId) {
         Boolean isDeleted = topicService.deleteTopic(topicId);
@@ -81,14 +81,14 @@ public class TopicController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(path = "/{topicId}/courses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/{topicId}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> createCourse(@PathVariable String topicId, @RequestBody Course course) {
         String courseId = topicService.createCourse(topicId, course);
         return ResponseEntity.created(UriComponentsBuilder.fromPath("topics/" + topicId + "/courses/" + courseId).build().toUri()).build();
     }
 
-    @GetMapping(path = "/{topicId}/courses/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{topicId}/courses/{courseId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<CourseWrapper> getCourse(@PathVariable String topicId, @PathVariable String courseId) {
         Course course = topicService.getCourse(topicId, courseId);
@@ -106,7 +106,7 @@ public class TopicController {
         return ResponseEntity.ok(wrapper);
     }
 
-    @GetMapping(path = "/{topicId}/courses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{topicId}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<CourseWrapper> getAllCourse(@PathVariable String topicId) {
         List<Course> courses = topicService.getAllCourse(topicId);
@@ -120,14 +120,14 @@ public class TopicController {
         return ResponseEntity.ok(wrapper);
     }
 
-    @PutMapping(path = "/{topicId}/courses/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{topicId}/courses/{courseId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> updateCourse(@PathVariable String topicId, @PathVariable String courseId, @RequestBody Course course) {
         topicService.updateCourse(topicId, courseId, course);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/{topicId}/courses/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{topicId}/courses/{courseId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<String> deleteCourse(@PathVariable String topicId, @PathVariable String courseId) {
         Boolean isDeleted = topicService.deleteCourse(topicId, courseId);
