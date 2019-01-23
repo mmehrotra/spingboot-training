@@ -30,7 +30,7 @@ public class TopicService {
     public String createTopic(Topic topicReq) {
         Topic topic = topicRepository.saveUpdateTopic(topicReq);
         putTopicCache(topic.getId(), topic);
-        //messagePublisher.publish(topic);
+        messagePublisher.publish(topic);
         return topic.getId();
     }
 
@@ -217,3 +217,6 @@ public class TopicService {
     }
 
 }
+
+
+
